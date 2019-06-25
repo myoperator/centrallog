@@ -18,5 +18,9 @@
         "psr-4": {
             "MyOperator\\": "src/"
         }
+    },
+    "require-dev": {
+        "jms/serializer": "1.7.*",
+        "phpdocumentor/phpdocumentor": "^2.9"
     }
 }

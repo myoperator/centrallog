@@ -30,6 +30,95 @@ or by adding following to your composer.json:
   }
 ```
 
+## Usage
+
+1. Include `vendor/autoload` in your project
+```php
+   include_once 'vendor/autoload.php';
+```
+
+2. Configure the logger
+
+```php
+  use \MyOperator\Centrallog;
+
+  CentralLog::configure('mylog.log'); //logs.log refers to log output file
+```
+
+3. Get the logger and log anything
+```php
+  $log = CentralLog::getLogger('myLogger');
+  $log->log("Something");
+```
+
+Overall, this can be summarised as 
+
+```php
+include_once 'vendor/autoload.php';
+use \MyOperator\CentralLog;
+
+CentralLog::configure("mylog.log");
+
+$log = CentralLog::getLogger('myLogger');
+$log->log("Something");
+```
+
+## Configurations
+
+The logger is adjusted to be configured as per myoperator specific logs. Hence, following params can be passed to the `configure` method.
+
+```
+  CentralLog::configure(string  $outputpath = null, string  $server = null, string|\MyOperator\class  $class = null, string  $pattern = null, string  $maxsize = null)
+```
+Parameters
+
+```
+string	$outputpath	Output path of the log file
+
+string	$server	Server on which the application is running. Ex- S6, API01
+
+string	$class	Class name under which the logger is being used
+
+string	$pattern	logger pattern as described in https://logging.apache.org/log4php/docs/layouts/pattern.html
+
+string	$maxsize	Maximum size per log
+```
+
+## Available methods
+
+### Logging General log
+
+Any log can be logged with following method signature
+
+```
+   CentralLog::log(mixed  $message, integer  $acl = null, string  $uid = null) 
+```
+
+Parameters
+```
+mixed	$message	Item to be logged
+
+integer	$acl	The ACL to be used to log the item. (optional)
+
+string	$uid	The unique id of item. In case of sync script, this can be engine uid. (optional). Can be one of [1,2,4]
+```
+
+Note that none of support/developer/client log method needs `$acl` parameter as it is obvious which `$acl` is going to be used
+### Logging support logs
+```
+   $logger->slog(mixed  $message, string  $uid = null, string  $level = null)
+```
+
+### Logging client logs
+```
+   $logger->clog(mixed  $message, string  $uid = null, string  $level = null)
+```
+
+### Logging developer logs
+```
+   $logger->dlog(mixed  $message, string  $uid = null, string  $level = null);
+```
+
 ## Todo
 
 * Add documentation to export public methods
