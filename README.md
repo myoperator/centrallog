@@ -67,12 +67,12 @@ $log->log("Something");
 
 The logger is adjusted to be configured as per myoperator specific logs. Hence, following params can be passed to the `configure` method.
 
-```
+```php
   CentralLog::configure(string  $outputpath = null, string  $server = null, string|\MyOperator\class  $class = null, string  $pattern = null, string  $maxsize = null)
 ```
 Parameters
 
-```
+```php
 string	$outputpath	Output path of the log file
 
 string	$server	Server on which the application is running. Ex- S6, API01
@@ -90,12 +90,12 @@ string	$maxsize	Maximum size per log
 
 Any log can be logged with following method signature
 
-```
+```php
    CentralLog::log(mixed  $message, integer  $acl = null, string  $uid = null) 
 ```
 
 Parameters
-```
+```php
 mixed	$message	Item to be logged
 
 integer	$acl	The ACL to be used to log the item. (optional)
@@ -105,21 +105,19 @@ string	$uid	The unique id of item. In case of sync script, this can be engine ui
 
 Note that none of support/developer/client log method needs `$acl` parameter as it is obvious which `$acl` is going to be used
 ### Logging support logs
-```
+```php
    $logger->slog(mixed  $message, string  $uid = null, string  $level = null)
 ```
 
 ### Logging client logs
-```
+```php
    $logger->clog(mixed  $message, string  $uid = null, string  $level = null)
 ```
 
 ### Logging developer logs
-```
+```php
    $logger->dlog(mixed  $message, string  $uid = null, string  $level = null);
 ```
 
 ## Todo
-
-* Add documentation to export public methods
 * Add phpunit testcases
