@@ -1,8 +1,8 @@
 <?php
 namespace MyOperator;
 
-include_once dirname(__FILE__) . '/../vendor/autoload.php';
-include_once 'DetailLogRenderer.php';
+use \Logger;
+use MyOperator\DetailLogRenderer;
 
 defined('LOG_LEVEL_ERROR') or define('LOG_LEVEL_ERROR', 'error');
 defined('LOG_LEVEL_WARN') or define('LOG_LEVEL_WARN', 'warn');
