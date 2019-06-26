@@ -30,6 +30,22 @@ or by adding following to your composer.json:
   }
 ```
 
+The `composer.json` will look like
+
+```json
+{
+    "require": {
+        "myoperator/centrallog": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/myoperator/centrallog.git"
+        }
+    ]
+}
+```
+
 ## Usage
 
 1. Include `vendor/autoload` in your project
@@ -118,6 +134,21 @@ Note that none of support/developer/client log method needs `$acl` parameter as 
 ```php
    $logger->dlog(mixed  $message, string  $uid = null, string  $level = null);
 ```
+
+## Viewing documentation
+
+This package uses phpdoc to generate documentation. You can generate the package documentation by cloning the repository and installing dev dependencies
+
+```sh
+    composer update --dev
+```
+
+and then using `phpdoc` to generate reference documentation by
+
+```
+   phpdoc -d src/
+```
+
 
 ## Todo
 * Add phpunit testcases
