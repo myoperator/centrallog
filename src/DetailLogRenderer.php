@@ -9,7 +9,7 @@ class DetailLogRenderer implements LoggerRenderer {
             $input = json_encode($input);
         }
         if($input instanceof \Exception) {
-            $input = array('kind' => 'exception', 'message'=> $input->getMessage(), 'code' => $input->getCode());
+            $input = array('kind' => 'exception', 'message'=> $input->getMessage(), 'code' => $input->getCode(), 'trace' => $v->getTrace());
             $input = json_encode($input);
         }
 
@@ -36,6 +36,9 @@ class DetailLogRenderer implements LoggerRenderer {
     {
         if($v instanceof \Exception) {
             return array('code' => $v->getCode(), 'message' => $v->getMessage(), 'trace' => $v->getTrace());
+        }
+        if(!$v || empty($v) || is_null($v)) {
+            $v = '';
         }
         return $v;
     }
