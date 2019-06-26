@@ -36,7 +36,7 @@ class CentralLog {
 
     public static $instance = null;
 
-    public function __construct($app = null)
+    private function __construct($app = null)
     {
         // Setting application name by default
         if($app)
