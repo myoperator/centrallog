@@ -293,18 +293,29 @@ class CentralLog {
 
     private function formatMessage($message, $uid, $acl)
     {
+        $data = array('uid' => $uid);
+        if(is_array($message) && (count(array_intersect(array('dmsg','cmsg','smsg'), array_keys($message))) > 0)) {
+            $data = array_merge($data, array(
+                'dmsg' => isset($message['dmsg']) ? $message['dmsg'] : '',
+                'smsg' => isset($message['smsg']) ? $message['smsg'] : '',
+                'cmsg' => isset($message['cmsg']) ? $message['cmsg'] : '',
+                'acl' =>  isset($message['cmsg']) ? $this->acl['customer'] : (isset($message['smsg']) ? $this->acl['support'] : $this->acl['developer'])
+            ));
+        } else {
+            $data = array_merge($data, array(
+                'dmsg' => ($this->acl['developer'] === $acl) ? $message : '',
+                'smsg' => ($this->acl['support'] === $acl) ? $message : '',
+                'cmsg' => ($this->acl['customer'] === $acl) ? $message : '',
+                'acl' => $acl
+            ));
+        }
+
         return array(
             'time' => time(),
             'mc_time' => round(microtime(true) * 1000),
             'ip' => $this->server,
             'class' => $this->class,
-            'data' => array(
-                'dmsg' => ($this->acl['developer'] === $acl) ? $message : '',
-                'smsg' => ($this->acl['support'] === $acl) ? $message : '',
-                'cmsg' => ($this->acl['customer'] === $acl) ? $message : '',
-                'acl' => $acl,
-                'uid' => $uid
-            )
+            'data' => $data
         );
     }
 

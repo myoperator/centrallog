@@ -135,6 +135,29 @@ Note that none of support/developer/client log method needs `$acl` parameter as 
    $logger->dlog(mixed  $message, string  $uid = null, string  $level = null);
 ```
 
+### Logging combined logs
+
+Sometimes, you may wish to log different types of responses for same event. You can easily do as by setting different messages in following message keys:
+
+```php
+   $message = array(
+                  'dmsg' => 'Your developer log here', 
+                  'smsg' => Your support log here', 
+                  'cmsg' => 'Your customer log here'
+              );
+```
+
+For instance, in case of an exception, you may want to send the stack trace to developer, exception message to support, and the string *Error occured* to end customer. This can be easily accomplished by implementing `log` as:
+
+
+```php
+    try{
+      throw new \Exception("Application error....", 400);
+    } catch (\Exception $e) {
+      $log->log(['dmsg' => $e, 'cmsg' => 'Some error occured', 'smsg' => $e->getMessage()]);
+    }
+```
+
 ## Viewing documentation
 
 This package uses phpdoc to generate documentation. You can generate the package documentation by cloning the repository and installing dev dependencies
