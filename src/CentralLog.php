@@ -284,7 +284,11 @@ class CentralLog {
         }
 
         $message = $this->formatMessage($message, $uid, $acl);
-        $this->logger->info($message);
+        try{
+            $this->logger->{$level}($message);
+        } catch (\Exception $e) {
+            $this->logger->info($message);
+        }
     }
 
     private function formatMessage($message, $uid, $acl)
