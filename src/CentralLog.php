@@ -189,7 +189,7 @@ class CentralLog {
      **/
     public function logme($message, $acl = null, $uid = null)
     {
-        $this->log($message, $acl, $uid, LOG_LEVEL_INFO);
+        $this->log($message, $uid, $acl, LOG_LEVEL_INFO);
     }
 
     /**
@@ -201,7 +201,7 @@ class CentralLog {
      **/
     public function info($message, $acl = null, $uid = null)
     {
-        $this->log($message, $acl, $uid, LOG_LEVEL_INFO);
+        $this->log($message, $uid, $acl, LOG_LEVEL_INFO);
     }
 
     /**
@@ -213,7 +213,7 @@ class CentralLog {
      **/
     public function error($message, $acl = null, $uid = null)
     {
-        $this->log($message, $acl, $uid, LOG_LEVEL_ERROR);
+        $this->log($message, $uid, $acl, LOG_LEVEL_ERROR);
     }
 
     /**
@@ -225,7 +225,7 @@ class CentralLog {
      **/
     public function warn($message, $acl = null, $uid = null)
     {
-        $this->log($message, $acl, $uid, LOG_LEVEL_WARN);
+        $this->log($message, $uid, $acl, LOG_LEVEL_WARN);
     }
 
     /**
@@ -237,7 +237,7 @@ class CentralLog {
      **/
     public function slog($message, $uid = null, $level = null)
     {
-        $this->log($message, $this->acl['support'], $uid, $level);
+        $this->log($message, $uid, $this->acl['support'], $level);
     }
 
     /**
@@ -250,7 +250,7 @@ class CentralLog {
 
     public function clog($message, $uid = null, $level = null)
     {
-        $this->log($message, $this->acl['customer'], $uid, $level);
+        $this->log($message, $uid, $this->acl['customer'], $level);
     }
 
     /**
@@ -263,7 +263,7 @@ class CentralLog {
 
     public function dlog($message, $uid = null, $level = null)
     {
-        $this->log($message, $this->acl['developer'], $uid, $level);
+        $this->log($message, $uid, $this->acl['developer'], $level);
     }
 
     /**
