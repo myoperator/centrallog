@@ -32,7 +32,7 @@ class CentralLog {
 
     protected $app = 'centrallogs';
     protected $defaultPattern = '%logger: (%date) [%level]- %msg%n';
-    protected $defaultMaxSize = '15MB';
+    protected $defaultMaxSize = '100MB';
 
     public static $instance = null;
 
@@ -342,7 +342,7 @@ class CentralLog {
     public function setMaxSize($maxsize = null)
     {
         if($maxsize === null) $maxsize = $this->defaultMaxSize;
-        $this->maxsize = $maxsize;
+        $this->defaultMaxSize = $maxsize;
     }
 
     public function setServer($server = null)
