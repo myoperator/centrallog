@@ -107,16 +107,18 @@ string	$maxsize	Maximum size per log
 Any log can be logged with following method signature
 
 ```php
-   CentralLog::log(mixed  $message, integer  $acl = null, string  $uid = null) 
+   CentralLog::log(mixed  $message, string  $uid = null,  integer  $acl = null, string $loglevel="info")
 ```
 
 Parameters
 ```php
 mixed	$message	Item to be logged
 
-integer	$acl	The ACL to be used to log the item. (optional)
+string	$uid	The unique id of item. In case of sync script, this can be engine uid. (optional)
 
-string	$uid	The unique id of item. In case of sync script, this can be engine uid. (optional). Can be one of [1,2,4]
+integer	$acl	The ACL to be used to log the item. (optional). Can be one of [1,2,4]
+
+string	$loglevel The loglevel to use for the log. defaults to `info`. (optional)
 ```
 
 Note that none of support/developer/client log method needs `$acl` parameter as it is obvious which `$acl` is going to be used
@@ -141,8 +143,8 @@ Sometimes, you may wish to log different types of responses for same event. You 
 
 ```php
    $message = array(
-                  'dmsg' => 'Your developer log here', 
-                  'smsg' => Your support log here', 
+                  'dmsg' => 'Your developer log here',
+                  'smsg' => 'Your support log here',
                   'cmsg' => 'Your customer log here'
               );
 ```

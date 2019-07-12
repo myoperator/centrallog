@@ -270,12 +270,12 @@ class CentralLog {
      * The log function.
      *
      * @param mixed $message Item to be logged
-     * @param int $acl The ACL to be used to log the item. (optional)
      * @param string $uid The unique id of item. In case of sync script, this can be engine uid. (optional)
+     * @param int $acl The ACL to be used to log the item. (optional). Possible values: [1,2,4] Defaults to 1 (developer)
      * @param string $level Log level (warn, info, error) can be passed as optional third param
      **/
 
-    public function log($message, $acl = null, $uid = null, $level = null)
+    public function log($message, $uid = null, $acl = null, $level = null)
     {
         if(!$uid) $uid = $this->hashuid;
         if(!$acl) $acl = $this->acl['developer']; //By default, logs should be open to developers only
