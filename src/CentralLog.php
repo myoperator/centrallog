@@ -35,6 +35,7 @@ class CentralLog {
     protected $defaultMaxSize = '100MB';
 
     public static $instance = null;
+    private $title = '';
 
     private function __construct($app = null)
     {
@@ -86,7 +87,7 @@ class CentralLog {
         if(!$this->class) {
             $this->setClassName($this->app);
         }
-        $this->hashuid = $this->hash($this->app);
+        $this->hashuid = uniqid(10);
     }
 
     public static function getInstance()
@@ -142,9 +143,14 @@ class CentralLog {
         return $instance;
     }
 
-    protected function hash($name)
+    public function title($title = '') {
+        return $this->withTitle($title);
+    }
+
+    public function withTitle($title = '')
     {
-        return base64_encode($name);
+        $this->title = $title;
+        return $this;
     }
 
     public function setConfigPath($path, $relative=false)
@@ -310,13 +316,17 @@ class CentralLog {
             ));
         }
 
-        return array(
+        $formattedMsg = array(
             'time' => time(),
             'mc_time' => round(microtime(true) * 1000),
             'ip' => $this->server,
             'class' => $this->class,
             'data' => $data
         );
+
+        if($this->title) $formattedMsg['title'] = $this->title;
+        $this->title = '';
+        return $formattedMsg;
     }
 
     public function setOutputFilename($name = null, $path=null)

@@ -56,7 +56,7 @@ The `composer.json` will look like
 2. Configure the logger
 
 ```php
-  use \MyOperator\Centrallog;
+  use \MyOperator\CentralLog;
 
   CentralLog::configure('mylog.log'); //logs.log refers to log output file
 ```
@@ -77,6 +77,9 @@ CentralLog::configure("mylog.log");
 
 $log = CentralLog::getLogger('myLogger');
 $log->log("Something");
+
+//Or you can also provide the title
+$log->withTitle("Making curl request")->log("curl response");
 ```
 
 ## Configurations
@@ -122,6 +125,18 @@ string	$loglevel The loglevel to use for the log. defaults to `info`. (optional)
 ```
 
 Note that none of support/developer/client log method needs `$acl` parameter as it is obvious which `$acl` is going to be used
+
+### Logging with title
+
+Titles helps contextiying log domain. It provides a way to recognize activities in logs. To make logs more readable, you can provide
+log titles with `->withTitle($title)` or `->title($title)`. For instance -
+
+```php
+  $logger->withTitle($title)->log($message, $uid, $acl);
+  //This is same as above
+  $logger->title($title)->log($message, $uid, $acl);
+```
+
 ### Logging support logs
 ```php
    $logger->slog(mixed  $message, string  $uid = null, string  $level = null)
